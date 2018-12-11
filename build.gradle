@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+
+def versions = [
+	"spring": "5.1.3.RELEASE"
+]
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	
+	//Spring
+	compile group: 'org.springframework', name: 'spring-webmvc', version: "${versions.spring}"
+	compile group: 'org.springframework', name: 'spring-jdbc', version: "${versions.spring}"
+	
+	
+	//mybatis
+	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
+	// https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+	compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.2'
+	
+	
+	// https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp
+	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+	
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+	
+	
+}
+
