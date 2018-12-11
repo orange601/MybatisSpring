@@ -44,3 +44,39 @@ MybatisSpring 연동하기
 
 </beans>
 ````
+
+# 3. Sqlsession 설정
+````xml
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!-- 		<property name="configLocation" value="classpath:/sqlmap/config/sql-mapper-config.xml" /> -->
+		<property name="mapperLocations" value="classpath:/com/mybatis/**/mapper/*Mapper.xml" />
+	</bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+  		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+````
+
+# 4. datasource 설정
+````xml
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/props/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="dataSource-${jdbc.dbType}" alias="dataSource" />
+
+	<!-- MySQL -->
+	<bean id="dataSource-mysql" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClass}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.userId}" />
+		<property name="password" value="${jdbc.userPwd}" />
+	</bean>
+````
+
